@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Comparativa de Carnes - Venezuela</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .producto { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
+        .precio { font-weight: bold; color: #2c3e50; }
+        .barato { color: #27ae60; font-weight: bold; }
+        .logo { font-size: 0.9em; color: #7f8c8d; }
+        button { width: 100%; padding: 10px; background: #2980b9; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Comparador de Bistec 🥩</h1>
+    <p style="text-align: center;">(Pulpa Negra / Chocozuela)</p>
+    
+    <div id="lista-precios">
+        </div>
+
+    <button onclick="compararPrecios()">Actualizar Comparativa</button>
+</div>
+
+<script>
+    // Datos de ejemplo (Estos datos se pueden actualizar vía Script de Python o manual)
+    const datos = [
+        { nombre: "Automercados Plaza's", precio: 8.50, link: "https://vallearriba.elplazas.com/" },
+        { nombre: "Gama", precio: 8.90, link: "https://gamaenlinea.com/" },
+        { nombre: "Forum", precio: 7.95, link: "https://forum.com.ve/" },
+        { nombre: "Central Madeirense", precio: 8.20, link: "https://tucentralonline.com/" }
+    ];
+
+    function compararPrecios() {
+        const contenedor = document.getElementById('lista-precios');
+        contenedor.innerHTML = '';
+
+        // Ordenar de menor a mayor precio
+        datos.sort((a, b) => a.precio - b.precio);
+
+        datos.forEach((tienda, index) => {
+            const div = document.createElement('div');
+            div.className = 'producto';
+            div.innerHTML = `
+                <span>
+                    <span class="logo">${tienda.nombre}</span><br>
+                    <a href="${tienda.link}" target="_blank">Ver producto</a>
+                </span>
+                <span class="precio ${index === 0 ? 'barato' : ''}">
+                    $${tienda.precio.toFixed(2)} ${index === 0 ? '¡El más barato!' : ''}
+                </span>
+            `;
+            contenedor.appendChild(div);
+        });
+    }
+
+    // Ejecutar al cargar
+    compararPrecios();
+</script>
+
+</body>
+</html>
