@@ -1,0 +1,26 @@
+name: Actualizar Precios Carne VZLA
+on:
+  schedule:
+    - cron: '0 11 * * *' # Se ejecuta a las 7 AM hora Venezuela
+  workflow_dispatch: # Permite que tú lo actives manualmente cuando quieras
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Instalar herramientas
+        run: pip install requests beautifulsoup4
+      - name: Ejecutar Robot
+        run: python actualizar_precios.py
+      - name: Actualizar Web
+        run: |
+          git config --global user.name 'PriceBot-VZLA'
+          git config --global user.email 'bot@github.com'
+          git add precios.json
+          git commit -m "Actualización automática de precios"
+          git push
