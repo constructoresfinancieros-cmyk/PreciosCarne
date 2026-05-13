@@ -3,65 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Comparativa de Carnes - Venezuela</title>
+    <title>Calculadora de Carne VZLA</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; }
-        .producto { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
-        .precio { font-weight: bold; color: #2c3e50; }
-        .barato { color: #27ae60; font-weight: bold; }
-        .logo { font-size: 0.9em; color: #7f8c8d; }
-        button { width: 100%; padding: 10px; background: #2980b9; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #d32f2f; margin-bottom: 5px; }
+        .update-info { text-align: center; font-size: 0.8em; color: #666; margin-bottom: 20px; }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
+        .item:last-child { border-bottom: none; }
+        .store-name { font-weight: bold; color: #333; }
+        .price { font-size: 1.2em; font-weight: bold; color: #2e7d32; }
+        .best-price { background-color: #e8f5e9; border-radius: 10px; border-left: 5px solid #4caf50; }
+        .btn-link { font-size: 0.7em; color: #1976d2; text-decoration: none; display: block; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Comparador de Bistec 🥩</h1>
-    <p style="text-align: center;">(Pulpa Negra / Chocozuela)</p>
+    <h1>🥩 Comparador de Bistec</h1>
+    <div class="update-info" id="fecha">Cargando precios actualizados...</div>
     
-    <div id="lista-precios">
+    <div id="lista">
         </div>
-
-    <button onclick="compararPrecios()">Actualizar Comparativa</button>
 </div>
 
 <script>
-    // Datos de ejemplo (Estos datos se pueden actualizar vía Script de Python o manual)
-    const datos = [
-        { nombre: "Automercados Plaza's", precio: 8.50, link: "https://vallearriba.elplazas.com/" },
-        { nombre: "Gama", precio: 8.90, link: "https://gamaenlinea.com/" },
-        { nombre: "Forum", precio: 7.95, link: "https://forum.com.ve/" },
-        { nombre: "Central Madeirense", precio: 8.20, link: "https://tucentralonline.com/" }
-    ];
+    async function cargarPrecios() {
+        try {
+            // Buscamos el archivo de precios que genera el robot
+            const respuesta = await fetch('precios.json');
+            let datos = await respuesta.json();
 
-    function compararPrecios() {
-        const contenedor = document.getElementById('lista-precios');
-        contenedor.innerHTML = '';
+            const listaDiv = document.getElementById('lista');
+            const fechaDiv = document.getElementById('fecha');
+            
+            // Ordenar de menor a mayor
+            datos.sort((a, b) => a.precio - b.precio);
 
-        // Ordenar de menor a mayor precio
-        datos.sort((a, b) => a.precio - b.precio);
+            listaDiv.innerHTML = '';
+            fechaDiv.innerText = "Actualizado hoy: " + new Date().toLocaleDateString();
 
-        datos.forEach((tienda, index) => {
-            const div = document.createElement('div');
-            div.className = 'producto';
-            div.innerHTML = `
-                <span>
-                    <span class="logo">${tienda.nombre}</span><br>
-                    <a href="${tienda.link}" target="_blank">Ver producto</a>
-                </span>
-                <span class="precio ${index === 0 ? 'barato' : ''}">
-                    $${tienda.precio.toFixed(2)} ${index === 0 ? '¡El más barato!' : ''}
-                </span>
-            `;
-            contenedor.appendChild(div);
-        });
+            datos.forEach((tienda, index) => {
+                const div = document.createElement('div');
+                div.className = 'item ' + (index === 0 ? 'best-price' : '');
+                div.innerHTML = `
+                    <div>
+                        <span class="store-name">${tienda.nombre}</span>
+                        <a class="btn-link" href="${tienda.link}" target="_blank">Ir a la web</a>
+                    </div>
+                    <div class="price">$${tienda.precio.toFixed(2)}</div>
+                `;
+                listaDiv.appendChild(div);
+            });
+        } catch (error) {
+            document.getElementById('lista').innerHTML = "<p style='text-align:center'>Todavía no hay datos. El robot está trabajando...</p>";
+        }
     }
 
-    // Ejecutar al cargar
-    compararPrecios();
+    cargarPrecios();
 </script>
-
 </body>
 </html>
