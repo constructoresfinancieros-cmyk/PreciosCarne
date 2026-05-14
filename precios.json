@@ -1,26 +1,18 @@
 [
     {
         "nombre": "Forum",
-        "carne": 7.99,
-        "pollo": 3.45,
-        "queso": 8.1
+        "carne": 7.99
     },
     {
         "nombre": "Central Madeirense",
-        "carne": 8.5,
-        "pollo": 3.75,
-        "queso": 8.45
+        "carne": 8.5
     },
     {
         "nombre": "Plaza's",
-        "carne": 8.9,
-        "pollo": 4.05,
-        "queso": 8.95
+        "carne": 8.9
     },
     {
         "nombre": "Gama",
-        "carne": 9.1,
-        "pollo": 3.9,
-        "queso": 8.75
+        "carne": 9.1
     }
 ]
