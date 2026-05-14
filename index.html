@@ -3,137 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Intelligence VZLA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>PRECIO AL DÍA - VZLA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #d32f2f;
-            --success: #2e7d32;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
+            --main-blue: #0a3d44; /* Azul petróleo de la imagen */
+            --header-gradient: linear-gradient(180deg, #0a3d44 0%, #125b64 100%);
+            --gold: #c5a059;
+            --light-bg: #f4f7f8;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
+            background-color: #e0e7e9; 
             margin: 0; 
             padding: 20px;
             display: flex;
             justify-content: center;
+            background-image: radial-gradient(#cad5d8 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         .app-container { 
             width: 100%;
-            max-width: 450px; /* Tamaño ideal para móvil/TikTok */
-            background: var(--card-bg); 
-            border-radius: 24px; 
+            max-width: 450px;
+            background: #ffffff; 
+            border-radius: 35px; 
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         header {
-            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-            padding: 30px 20px;
+            background: var(--header-gradient);
+            padding: 40px 20px;
             color: white;
             text-align: center;
+            border-bottom: 4px solid var(--gold);
         }
 
-        h1 { margin: 0; font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        .subtitle { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
+        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
+        .subtitle { font-size: 0.9rem; opacity: 0.8; margin-top: 8px; font-weight: 400; }
 
         .date-badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 15px;
+            border-radius: 12px;
+            font-size: 0.8rem;
             margin-top: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        #lista { padding: 15px; }
+        #lista { padding: 20px; background-color: var(--light-bg); }
 
         .card {
             display: flex;
             align-items: center;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 16px;
-            border: 1px solid #f0f0f0;
-            transition: transform 0.2s;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            background: #ffffff;
+            box-shadow: 6px 6px 12px #d1d9db, -6px -6px 12px #ffffff;
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
         }
 
-        /* Estilo para el más barato */
         .card.best-deal {
-            border: 2px solid #4caf50;
-            background: #f1f8e9;
-            position: relative;
+            border: 2px solid var(--gold);
+            background: linear-gradient(145deg, #ffffff, #f9f4e8);
         }
 
         .best-deal::after {
             content: "Mejor Opción 🚀";
             position: absolute;
-            top: -10px;
-            right: 15px;
-            background: #4caf50;
+            top: -12px;
+            right: 20px;
+            background: #2e7d32;
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: bold;
-            padding: 2px 10px;
-            border-radius: 10px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .store-logo {
-            width: 50px;
-            height: 50px;
-            background: #eee;
-            border-radius: 12px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(145deg, #d4af37, #b8860b);
+            border-radius: 50%;
             margin-right: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: #999;
-            font-size: 0.8rem;
+            font-weight: 800;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.1);
         }
 
         .store-info { flex-grow: 1; }
-        .store-name { font-weight: 700; color: #333; font-size: 1.05rem; display: block; }
-        .product-name { font-size: 0.75rem; color: #777; }
+        .store-name-link { 
+            font-weight: 700; 
+            color: var(--main-blue); 
+            font-size: 1.1rem; 
+            text-decoration: none;
+            display: block;
+        }
+        .store-name-link:hover { color: var(--gold); }
+        
+        .product-name { font-size: 0.8rem; color: #6e8184; font-weight: 400; }
 
         .price-section { text-align: right; }
-        .price-value { font-size: 1.3rem; font-weight: 800; color: #222; }
-        .currency { font-size: 0.8rem; color: #666; margin-right: 2px; }
+        .price-value { font-size: 1.5rem; font-weight: 800; color: var(--main-blue); }
+        .currency { font-size: 0.9rem; color: var(--gold); font-weight: 800; margin-right: 2px; }
 
-        .btn-shop {
+        .btn-refresh {
             display: block;
             text-align: center;
-            background: #333;
+            background: var(--main-blue);
             color: white;
             text-decoration: none;
-            padding: 12px;
-            margin: 15px;
-            border-radius: 12px;
+            padding: 18px;
+            margin: 20px;
+            border-radius: 15px;
             font-weight: 700;
-            font-size: 0.9rem;
-            transition: background 0.3s;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(10, 61, 68, 0.2);
         }
 
-        .btn-shop:hover { background: #000; }
+        .btn-refresh:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <header>
-        <h1>🥩 COMPARADOR PRO</h1>
+        <h1>PRECIO AL DÍA</h1>
         <div class="subtitle">Bistec • Pulpa Negra • Chocozuela</div>
-        <div class="date-badge" id="fecha">Actualizando datos...</div>
+        <div class="date-badge" id="fecha">--/--/----</div>
     </header>
     
     <div id="lista">
         </div>
 
-    <a href="#" class="btn-shop" onclick="window.location.reload()">🔄 ACTUALIZAR PRECIOS</a>
+    <button class="btn-refresh" onclick="window.location.reload()">🔄 ACTUALIZAR PRECIOS</button>
 </div>
 
 <script>
@@ -145,21 +164,18 @@
             const fechaDiv = document.getElementById('fecha');
             
             datos.sort((a, b) => a.precio - b.precio);
-
             listaDiv.innerHTML = '';
             fechaDiv.innerText = "📅 " + new Date().toLocaleDateString();
 
             datos.forEach((tienda, index) => {
                 const card = document.createElement('div');
                 card.className = 'card ' + (index === 0 ? 'best-deal' : '');
-                
-                // Iniciales para el logo temporal
                 const iniciales = tienda.nombre.substring(0, 2).toUpperCase();
 
                 card.innerHTML = `
-                    <div class="store-logo">${iniciales}</div>
+                    <div class="store-logo" style="${index > 0 ? 'background: #cbd5d8; color: #5a6d70;' : ''}">${iniciales}</div>
                     <div class="store-info">
-                        <span class="store-name">${tienda.nombre}</span>
+                        <a href="${tienda.link}" target="_blank" class="store-name-link">${tienda.nombre}</a>
                         <span class="product-name">Corte de Primera</span>
                     </div>
                     <div class="price-section">
@@ -169,7 +185,7 @@
                 listaDiv.appendChild(card);
             });
         } catch (error) {
-            document.getElementById('lista').innerHTML = "<p style='text-align:center'>Obteniendo precios del mercado...</p>";
+            document.getElementById('lista').innerHTML = "<p style='text-align:center'>Conectando con el mercado...</p>";
         }
     }
     cargarPrecios();
