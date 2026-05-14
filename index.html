@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --main-blue: #0a3d44; /* Azul petróleo de la imagen */
+            --main-blue: #0a3d44;
             --header-gradient: linear-gradient(180deg, #0a3d44 0%, #125b64 100%);
             --gold: #c5a059;
             --light-bg: #f4f7f8;
@@ -17,11 +17,10 @@
             font-family: 'Inter', sans-serif; 
             background-color: #e0e7e9; 
             margin: 0; 
-            padding: 20px;
+            padding: 10px;
             display: flex;
-            justify-content: center;
-            background-image: radial-gradient(#cad5d8 1px, transparent 1px);
-            background-size: 20px 20px;
+            flex-direction: column;
+            align-items: center;
         }
 
         .app-container { 
@@ -31,31 +30,45 @@
             border-radius: 35px; 
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
         }
 
         header {
             background: var(--header-gradient);
-            padding: 40px 20px;
+            padding: 30px 20px 10px 20px;
             color: white;
             text-align: center;
-            border-bottom: 4px solid var(--gold);
         }
 
         h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
-        .subtitle { font-size: 0.9rem; opacity: 0.8; margin-top: 8px; font-weight: 400; }
 
-        .date-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            padding: 6px 15px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            margin-top: 15px;
-            border: 1px solid rgba(255,255,255,0.3);
+        /* Pestañas de Navegación */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 10px;
+            background: var(--main-blue);
         }
 
-        #lista { padding: 20px; background-color: var(--light-bg); }
+        .tab-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--gold);
+            color: var(--main-blue);
+            border-color: var(--gold);
+        }
+
+        #lista { padding: 20px; background-color: var(--light-bg); min-height: 300px; }
 
         .card {
             display: flex;
@@ -65,79 +78,51 @@
             border-radius: 20px;
             background: #ffffff;
             box-shadow: 6px 6px 12px #d1d9db, -6px -6px 12px #ffffff;
-            border: 1px solid rgba(0,0,0,0.03);
             position: relative;
         }
 
-        .card.best-deal {
-            border: 2px solid var(--gold);
-            background: linear-gradient(145deg, #ffffff, #f9f4e8);
-        }
+        .card.best-deal { border: 2px solid var(--gold); background: linear-gradient(145deg, #ffffff, #f9f4e8); }
 
         .best-deal::after {
             content: "Mejor Opción 🚀";
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background: #2e7d32;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 3px 12px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; top: -12px; right: 20px;
+            background: #2e7d32; color: white;
+            font-size: 0.7rem; font-weight: bold; padding: 3px 12px; border-radius: 20px;
         }
 
         .store-logo {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(145deg, #d4af37, #b8860b);
-            border-radius: 50%;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: white;
-            font-size: 1rem;
-            box-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            width: 50px; height: 50px;
+            background: #cbd5d8; border-radius: 50%;
+            margin-right: 15px; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: 800; color: #5a6d70; font-size: 0.9rem;
         }
+
+        .best-deal .store-logo { background: linear-gradient(145deg, #d4af37, #b8860b); color: white; }
 
         .store-info { flex-grow: 1; }
-        .store-name-link { 
-            font-weight: 700; 
-            color: var(--main-blue); 
-            font-size: 1.1rem; 
-            text-decoration: none;
-            display: block;
-        }
-        .store-name-link:hover { color: var(--gold); }
-        
-        .product-name { font-size: 0.8rem; color: #6e8184; font-weight: 400; }
+        .store-name-link { font-weight: 700; color: var(--main-blue); text-decoration: none; display: block; }
+        .product-name { font-size: 0.75rem; color: #6e8184; }
 
         .price-section { text-align: right; }
-        .price-value { font-size: 1.5rem; font-weight: 800; color: var(--main-blue); }
-        .currency { font-size: 0.9rem; color: var(--gold); font-weight: 800; margin-right: 2px; }
+        .price-value { font-size: 1.4rem; font-weight: 800; color: var(--main-blue); }
+        .currency { font-size: 0.8rem; color: var(--gold); font-weight: 800; }
 
-        .btn-refresh {
-            display: block;
+        footer {
             text-align: center;
-            background: var(--main-blue);
-            color: white;
-            text-decoration: none;
-            padding: 18px;
-            margin: 20px;
-            border-radius: 15px;
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(10, 61, 68, 0.2);
+            padding: 20px;
+            color: #5a6d70;
+            font-size: 0.85rem;
+            line-height: 1.4;
         }
 
-        .btn-refresh:active { transform: scale(0.98); }
+        .cf-brand {
+            font-weight: 800;
+            color: var(--main-blue);
+            display: block;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -145,49 +130,86 @@
 <div class="app-container">
     <header>
         <h1>PRECIO AL DÍA</h1>
-        <div class="subtitle">Bistec • Pulpa Negra • Chocozuela</div>
-        <div class="date-badge" id="fecha">--/--/----</div>
+        <div id="fecha" style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">📅 --/--/----</div>
     </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="cambiarCategoria('carne', this)">🥩 Carne</button>
+        <button class="tab-btn" onclick="cambiarCategoria('pollo', this)">🍗 Pollo</button>
+        <button class="tab-btn" onclick="cambiarCategoria('queso', this)">🧀 Queso</button>
+    </div>
     
     <div id="lista">
         </div>
-
-    <button class="btn-refresh" onclick="window.location.reload()">🔄 ACTUALIZAR PRECIOS</button>
 </div>
 
+<footer>
+    Desarrollado por:
+    <span class="cf-brand">CF Emprendimiento y Finanzas</span>
+</footer>
+
 <script>
+    let datosGlobales = [];
+
+    // Precios de ejemplo (el robot de Python los actualizará en el JSON)
+    const mockData = [
+        { nombre: "Forum", carne: 7.99, pollo: 3.50, queso: 5.20, link: "https://forum.com.ve/" },
+        { nombre: "Central Madeirense", carne: 8.50, pollo: 3.80, queso: 5.50, link: "https://tucentralonline.com/" },
+        { nombre: "Plaza's", carne: 8.90, pollo: 4.10, queso: 6.20, link: "https://vallearriba.elplazas.com/" },
+        { nombre: "Gama", carne: 9.10, pollo: 3.95, queso: 5.80, link: "https://gamaenlinea.com/" }
+    ];
+
     async function cargarPrecios() {
+        document.getElementById('fecha').innerText = "📅 " + new Date().toLocaleDateString();
+        // Intentamos cargar del JSON, si falla usamos mockData
         try {
-            const respuesta = await fetch('precios.json');
-            let datos = await respuesta.json();
-            const listaDiv = document.getElementById('lista');
-            const fechaDiv = document.getElementById('fecha');
-            
-            datos.sort((a, b) => a.precio - b.precio);
-            listaDiv.innerHTML = '';
-            fechaDiv.innerText = "📅 " + new Date().toLocaleDateString();
-
-            datos.forEach((tienda, index) => {
-                const card = document.createElement('div');
-                card.className = 'card ' + (index === 0 ? 'best-deal' : '');
-                const iniciales = tienda.nombre.substring(0, 2).toUpperCase();
-
-                card.innerHTML = `
-                    <div class="store-logo" style="${index > 0 ? 'background: #cbd5d8; color: #5a6d70;' : ''}">${iniciales}</div>
-                    <div class="store-info">
-                        <a href="${tienda.link}" target="_blank" class="store-name-link">${tienda.nombre}</a>
-                        <span class="product-name">Corte de Primera</span>
-                    </div>
-                    <div class="price-section">
-                        <span class="currency">$</span><span class="price-value">${tienda.precio.toFixed(2)}</span>
-                    </div>
-                `;
-                listaDiv.appendChild(card);
-            });
-        } catch (error) {
-            document.getElementById('lista').innerHTML = "<p style='text-align:center'>Conectando con el mercado...</p>";
+            const res = await fetch('precios.json');
+            datosGlobales = await res.json();
+            if(datosGlobales.length === 0) datosGlobales = mockData;
+        } catch {
+            datosGlobales = mockData;
         }
+        renderizar('carne');
     }
+
+    function renderizar(categoria) {
+        const listaDiv = document.getElementById('lista');
+        listaDiv.innerHTML = '';
+
+        // Ordenar según la categoría seleccionada
+        const ordenados = [...datosGlobales].sort((a, b) => a[categoria] - b[categoria]);
+
+        ordenados.forEach((tienda, index) => {
+            const card = document.createElement('div');
+            card.className = 'card ' + (index === 0 ? 'best-deal' : '');
+            const iniciales = tienda.nombre.substring(0, 2).toUpperCase();
+            
+            card.innerHTML = `
+                <div class="store-logo">${iniciales}</div>
+                <div class="store-info">
+                    <a href="${tienda.link}" target="_blank" class="store-name-link">${tienda.nombre}</a>
+                    <span class="product-name">${obtenerSubtitulo(categoria)}</span>
+                </div>
+                <div class="price-section">
+                    <span class="currency">$</span><span class="price-value">${tienda[categoria].toFixed(2)}</span>
+                </div>
+            `;
+            listaDiv.appendChild(card);
+        });
+    }
+
+    function obtenerSubtitulo(cat) {
+        if(cat === 'carne') return 'Bistec / Pulpa Negra';
+        if(cat === 'pollo') return 'Pollo Entero (Kg)';
+        return 'Queso Duro Blanco';
+    }
+
+    function cambiarCategoria(cat, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderizar(cat);
+    }
+
     cargarPrecios();
 </script>
 </body>
