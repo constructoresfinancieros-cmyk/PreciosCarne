@@ -1,18 +1,18 @@
 [
     {
         "nombre": "Forum",
-        "carne": 7.99
+        "carne": 10.99
     },
     {
         "nombre": "Central Madeirense",
-        "carne": 8.5
+        "carne": 10.79
     },
     {
         "nombre": "Plaza's",
-        "carne": 8.9
+        "carne": 8.45
     },
     {
         "nombre": "Gama",
-        "carne": 9.1
+        "carne": 11.49
     }
 ]
