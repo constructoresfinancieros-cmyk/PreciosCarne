@@ -3,126 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRECIO AL DÍA - VZLA</title>
+    <title>PRECIO AL DÍA - CF</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --main-blue: #0a3d44;
-            --header-gradient: linear-gradient(180deg, #0a3d44 0%, #125b64 100%);
-            --gold: #c5a059;
-            --light-bg: #f4f7f8;
-        }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #e0e7e9; 
-            margin: 0; 
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .app-container { 
-            width: 100%;
-            max-width: 450px;
-            background: #ffffff; 
-            border-radius: 35px; 
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-        }
-
-        header {
-            background: var(--header-gradient);
-            padding: 30px 20px 10px 20px;
-            color: white;
-            text-align: center;
-        }
-
-        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
-
-        /* Pestañas de Navegación */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px 10px;
-            background: var(--main-blue);
-        }
-
-        .tab-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .tab-btn.active {
-            background: var(--gold);
-            color: var(--main-blue);
-            border-color: var(--gold);
-        }
-
-        #lista { padding: 20px; background-color: var(--light-bg); min-height: 300px; }
-
-        .card {
-            display: flex;
-            align-items: center;
-            padding: 18px;
-            margin-bottom: 15px;
-            border-radius: 20px;
-            background: #ffffff;
-            box-shadow: 6px 6px 12px #d1d9db, -6px -6px 12px #ffffff;
-            position: relative;
-        }
-
-        .card.best-deal { border: 2px solid var(--gold); background: linear-gradient(145deg, #ffffff, #f9f4e8); }
-
-        .best-deal::after {
-            content: "Mejor Opción 🚀";
-            position: absolute; top: -12px; right: 20px;
-            background: #2e7d32; color: white;
-            font-size: 0.7rem; font-weight: bold; padding: 3px 12px; border-radius: 20px;
-        }
-
-        .store-logo {
-            width: 50px; height: 50px;
-            background: #cbd5d8; border-radius: 50%;
-            margin-right: 15px; display: flex;
-            align-items: center; justify-content: center;
-            font-weight: 800; color: #5a6d70; font-size: 0.9rem;
-        }
-
-        .best-deal .store-logo { background: linear-gradient(145deg, #d4af37, #b8860b); color: white; }
-
+        :root { --main-blue: #0a3d44; --gold: #c5a059; --bg: #e0e7e9; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        .app-container { width: 100%; max-width: 450px; background: #fff; border-radius: 35px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05); }
+        header { background: linear-gradient(180deg, #0a3d44 0%, #125b64 100%); padding: 30px 20px; color: white; text-align: center; border-bottom: 4px solid var(--gold); }
+        h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; }
+        .tabs { display: flex; justify-content: center; gap: 8px; padding: 15px; background: var(--main-blue); }
+        .tab-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 18px; border-radius: 12px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.3s; }
+        .tab-btn.active { background: var(--gold); color: var(--main-blue); border-color: var(--gold); }
+        #lista { padding: 20px; min-height: 300px; background: #f4f7f8; }
+        .card { display: flex; align-items: center; padding: 20px; margin-bottom: 15px; border-radius: 20px; background: white; box-shadow: 4px 4px 10px rgba(0,0,0,0.05); position: relative; border: 1px solid #eee; }
+        .card.best-deal { border: 2px solid var(--gold); background: #fffdf7; }
+        .best-deal::after { content: "Mejor Opción 🚀"; position: absolute; top: -10px; right: 15px; background: #2e7d32; color: white; font-size: 0.65rem; padding: 4px 12px; border-radius: 10px; font-weight: 800; box-shadow: 0 4px 10px rgba(46,125,50,0.3); }
         .store-info { flex-grow: 1; }
-        .store-name-link { font-weight: 700; color: var(--main-blue); text-decoration: none; display: block; }
-        .product-name { font-size: 0.75rem; color: #6e8184; }
-
+        .store-name { font-weight: 700; color: var(--main-blue); font-size: 1.2rem; display: block; }
+        .product-name { font-size: 0.75rem; color: #777; font-weight: 400; }
         .price-section { text-align: right; }
-        .price-value { font-size: 1.4rem; font-weight: 800; color: var(--main-blue); }
-        .currency { font-size: 0.8rem; color: var(--gold); font-weight: 800; }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #5a6d70;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .cf-brand {
-            font-weight: 800;
-            color: var(--main-blue);
-            display: block;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
-        }
+        .price-value { font-size: 1.6rem; font-weight: 800; color: var(--main-blue); }
+        .currency { font-size: 0.9rem; color: var(--gold); font-weight: 800; margin-right: 2px; }
+        footer { text-align: center; padding: 30px 20px; color: #5a6d70; font-size: 0.85rem; line-height: 1.4; }
+        .cf-brand { font-weight: 800; color: var(--main-blue); display: block; margin-top: 5px; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -130,87 +33,59 @@
 <div class="app-container">
     <header>
         <h1>PRECIO AL DÍA</h1>
-        <div id="fecha" style="font-size: 0.8rem; opacity: 0.7; margin-top: 5px;">📅 --/--/----</div>
+        <div id="fecha" style="font-size: 0.85rem; opacity: 0.8; margin-top: 8px; font-weight: 600;">📅 Cargando datos...</div>
     </header>
-
     <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarCategoria('carne', this)">🥩 Carne</button>
-        <button class="tab-btn" onclick="cambiarCategoria('pollo', this)">🍗 Pollo</button>
-        <button class="tab-btn" onclick="cambiarCategoria('queso', this)">🧀 Queso</button>
+        <button class="tab-btn active" onclick="cambiarCat('carne', this)">🥩 Carne</button>
+        <button class="tab-btn" onclick="cambiarCat('pollo', this)">🍗 Pollo</button>
+        <button class="tab-btn" onclick="cambiarCat('queso', this)">🧀 Queso</button>
     </div>
-    
-    <div id="lista">
-        </div>
+    <div id="lista"></div>
 </div>
 
 <footer>
-    Desarrollado por:
+    Monitoreo de mercado validado por:<br>
     <span class="cf-brand">CF Emprendimiento y Finanzas</span>
 </footer>
 
 <script>
-    let datosGlobales = [];
-
-    // Precios de ejemplo (el robot de Python los actualizará en el JSON)
-    const mockData = [
-        { nombre: "Forum", carne: 7.99, pollo: 3.50, queso: 5.20, link: "https://forum.com.ve/" },
-        { nombre: "Central Madeirense", carne: 8.50, pollo: 3.80, queso: 5.50, link: "https://tucentralonline.com/" },
-        { nombre: "Plaza's", carne: 8.90, pollo: 4.10, queso: 6.20, link: "https://vallearriba.elplazas.com/" },
-        { nombre: "Gama", carne: 9.10, pollo: 3.95, queso: 5.80, link: "https://gamaenlinea.com/" }
-    ];
-
-    async function cargarPrecios() {
-        document.getElementById('fecha').innerText = "📅 " + new Date().toLocaleDateString();
-        // Intentamos cargar del JSON, si falla usamos mockData
+    let rawData = [];
+    async function init() {
         try {
-            const res = await fetch('precios.json');
-            datosGlobales = await res.json();
-            if(datosGlobales.length === 0) datosGlobales = mockData;
-        } catch {
-            datosGlobales = mockData;
+            // Se agrega un número aleatorio al final para evitar el problema del caché
+            const res = await fetch('precios.json?v=' + Math.random());
+            rawData = await res.json();
+            document.getElementById('fecha').innerText = "📅 Actualizado: " + new Date().toLocaleDateString('es-VE');
+            render('carne');
+        } catch (e) {
+            document.getElementById('lista').innerHTML = "<p style='text-align:center; padding:50px;'>Actualizando base de datos...</p>";
         }
-        renderizar('carne');
     }
-
-    function renderizar(categoria) {
-        const listaDiv = document.getElementById('lista');
-        listaDiv.innerHTML = '';
-
-        // Ordenar según la categoría seleccionada
-        const ordenados = [...datosGlobales].sort((a, b) => a[categoria] - b[categoria]);
-
-        ordenados.forEach((tienda, index) => {
+    function render(cat) {
+        const lista = document.getElementById('lista');
+        lista.innerHTML = '';
+        // Ordena de menor a mayor precio
+        const sorted = [...rawData].sort((a, b) => a[cat] - b[cat]);
+        sorted.forEach((t, i) => {
             const card = document.createElement('div');
-            card.className = 'card ' + (index === 0 ? 'best-deal' : '');
-            const iniciales = tienda.nombre.substring(0, 2).toUpperCase();
-            
+            card.className = 'card ' + (i === 0 ? 'best-deal' : '');
             card.innerHTML = `
-                <div class="store-logo">${iniciales}</div>
                 <div class="store-info">
-                    <a href="${tienda.link}" target="_blank" class="store-name-link">${tienda.nombre}</a>
-                    <span class="product-name">${obtenerSubtitulo(categoria)}</span>
+                    <span class="store-name">${t.nombre}</span>
+                    <span class="product-name">${cat === 'carne' ? 'Bistec / Pulpa Negra (Kg)' : cat === 'pollo' ? 'Pollo Entero (Kg)' : 'Queso Blanco Duro (Kg)'}</span>
                 </div>
                 <div class="price-section">
-                    <span class="currency">$</span><span class="price-value">${tienda[categoria].toFixed(2)}</span>
-                </div>
-            `;
-            listaDiv.appendChild(card);
+                    <span class="currency">$</span><span class="price-value">${t[cat].toFixed(2)}</span>
+                </div>`;
+            lista.appendChild(card);
         });
     }
-
-    function obtenerSubtitulo(cat) {
-        if(cat === 'carne') return 'Bistec / Pulpa Negra';
-        if(cat === 'pollo') return 'Pollo Entero (Kg)';
-        return 'Queso Duro Blanco';
-    }
-
-    function cambiarCategoria(cat, btn) {
+    function cambiarCat(cat, btn) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        renderizar(cat);
+        render(cat);
     }
-
-    cargarPrecios();
+    init();
 </script>
 </body>
 </html>
