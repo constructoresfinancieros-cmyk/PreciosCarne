@@ -3,29 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PRECIO AL DÍA - CF</title>
+    <title>PRECIO AL DÍA - Carne</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --main-blue: #0a3d44; --gold: #c5a059; --bg: #e0e7e9; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
-        .app-container { width: 100%; max-width: 450px; background: #fff; border-radius: 35px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.05); }
+        .app-container { width: 100%; max-width: 450px; background: #fff; border-radius: 35px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
         header { background: linear-gradient(180deg, #0a3d44 0%, #125b64 100%); padding: 30px 20px; color: white; text-align: center; border-bottom: 4px solid var(--gold); }
         h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; }
-        .tabs { display: flex; justify-content: center; gap: 8px; padding: 15px; background: var(--main-blue); }
-        .tab-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 18px; border-radius: 12px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: 0.3s; }
-        .tab-btn.active { background: var(--gold); color: var(--main-blue); border-color: var(--gold); }
-        #lista { padding: 20px; min-height: 300px; background: #f4f7f8; }
+        #lista { padding: 20px; background: #f4f7f8; min-height: 350px; }
         .card { display: flex; align-items: center; padding: 20px; margin-bottom: 15px; border-radius: 20px; background: white; box-shadow: 4px 4px 10px rgba(0,0,0,0.05); position: relative; border: 1px solid #eee; }
         .card.best-deal { border: 2px solid var(--gold); background: #fffdf7; }
-        .best-deal::after { content: "Mejor Opción 🚀"; position: absolute; top: -10px; right: 15px; background: #2e7d32; color: white; font-size: 0.65rem; padding: 4px 12px; border-radius: 10px; font-weight: 800; box-shadow: 0 4px 10px rgba(46,125,50,0.3); }
+        .best-deal::after { content: "Mejor Opción 🚀"; position: absolute; top: -10px; right: 15px; background: #2e7d32; color: white; font-size: 0.65rem; padding: 4px 12px; border-radius: 10px; font-weight: 800; }
         .store-info { flex-grow: 1; }
         .store-name { font-weight: 700; color: var(--main-blue); font-size: 1.2rem; display: block; }
-        .product-name { font-size: 0.75rem; color: #777; font-weight: 400; }
-        .price-section { text-align: right; }
+        .product-name { font-size: 0.75rem; color: #777; }
         .price-value { font-size: 1.6rem; font-weight: 800; color: var(--main-blue); }
-        .currency { font-size: 0.9rem; color: var(--gold); font-weight: 800; margin-right: 2px; }
-        footer { text-align: center; padding: 30px 20px; color: #5a6d70; font-size: 0.85rem; line-height: 1.4; }
-        .cf-brand { font-weight: 800; color: var(--main-blue); display: block; margin-top: 5px; font-size: 1rem; }
+        .currency { font-size: 0.9rem; color: var(--gold); font-weight: 800; }
+        footer { text-align: center; padding: 30px; color: #5a6d70; font-size: 0.85rem; }
+        .cf-brand { font-weight: 800; color: var(--main-blue); display: block; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -33,57 +29,38 @@
 <div class="app-container">
     <header>
         <h1>PRECIO AL DÍA</h1>
-        <div id="fecha" style="font-size: 0.85rem; opacity: 0.8; margin-top: 8px; font-weight: 600;">📅 Cargando datos...</div>
+        <div id="fecha" style="font-size: 0.85rem; opacity: 0.8; margin-top: 8px;">🥩 Monitor de Carne (Kg)</div>
     </header>
-    <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarCat('carne', this)">🥩 Carne</button>
-        <button class="tab-btn" onclick="cambiarCat('pollo', this)">🍗 Pollo</button>
-        <button class="tab-btn" onclick="cambiarCat('queso', this)">🧀 Queso</button>
-    </div>
     <div id="lista"></div>
 </div>
 
 <footer>
-    Monitoreo de mercado validado por:<br>
+    Información validada por:<br>
     <span class="cf-brand">CF Emprendimiento y Finanzas</span>
 </footer>
 
 <script>
-    let rawData = [];
     async function init() {
-        try {
-            // Se agrega un número aleatorio al final para evitar el problema del caché
-            const res = await fetch('precios.json?v=' + Math.random());
-            rawData = await res.json();
-            document.getElementById('fecha').innerText = "📅 Actualizado: " + new Date().toLocaleDateString('es-VE');
-            render('carne');
-        } catch (e) {
-            document.getElementById('lista').innerHTML = "<p style='text-align:center; padding:50px;'>Actualizando base de datos...</p>";
-        }
-    }
-    function render(cat) {
+        const res = await fetch('precios.json?v=' + Math.random());
+        const data = await res.json();
         const lista = document.getElementById('lista');
-        lista.innerHTML = '';
-        // Ordena de menor a mayor precio
-        const sorted = [...rawData].sort((a, b) => a[cat] - b[cat]);
-        sorted.forEach((t, i) => {
+        
+        // Ordenar por precio
+        data.sort((a, b) => a.carne - b.carne);
+        
+        data.forEach((t, i) => {
             const card = document.createElement('div');
             card.className = 'card ' + (i === 0 ? 'best-deal' : '');
             card.innerHTML = `
                 <div class="store-info">
                     <span class="store-name">${t.nombre}</span>
-                    <span class="product-name">${cat === 'carne' ? 'Bistec / Pulpa Negra (Kg)' : cat === 'pollo' ? 'Pollo Entero (Kg)' : 'Queso Blanco Duro (Kg)'}</span>
+                    <span class="product-name">Bistec / Pulpa Negra (Kg)</span>
                 </div>
-                <div class="price-section">
-                    <span class="currency">$</span><span class="price-value">${t[cat].toFixed(2)}</span>
+                <div class="price-section" style="text-align:right;">
+                    <span class="currency">$</span><span class="price-value">${t.carne.toFixed(2)}</span>
                 </div>`;
             lista.appendChild(card);
         });
-    }
-    function cambiarCat(cat, btn) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        render(cat);
     }
     init();
 </script>
