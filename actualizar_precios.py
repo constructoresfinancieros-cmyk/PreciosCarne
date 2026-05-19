@@ -4,10 +4,10 @@ def actualizar_base_datos():
     # DATOS REALES BASADOS EN TUS LINKS (13/05/2026)
     # Solo carne (Bistec / Pulpa Negra / Chocozuela)
     datos_verificados = [
-        {"nombre": "Forum", "carne": 7.99},
-        {"nombre": "Central Madeirense", "carne": 8.50},
-        {"nombre": "Plaza's", "carne": 8.90},
-        {"nombre": "Gama", "carne": 9.10}
+        {"nombre": "Forum", "carne": 10.99},
+        {"nombre": "Central Madeirense", "carne": 11.59},
+        {"nombre": "Plaza's", "carne": 10.95},
+        {"nombre": "Gama", "carne": 11.99}
     ]
     
     with open('precios.json', 'w', encoding='utf-8') as f:
